@@ -1,192 +1,180 @@
-# SoftDesk Support API
+# SoftDesk API
 
-API RESTful sécurisée développée avec Django REST Framework dans le cadre du projet OpenClassrooms "Créez une API sécurisée RESTful avec Django REST".
+Secure RESTful API developed with Django REST Framework as part of the
+OpenClassrooms project **"Build a Secure RESTful API with Django
+REST"**.
 
 ## Description
 
-SoftDesk Support est une API B2B permettant la gestion collaborative de projets techniques :
+SoftDesk Support is a B2B API designed for collaborative technical 
+project management:
 
-- gestion des utilisateurs
-- création de projets
-- gestion des contributeurs
-- suivi des issues/tickets
-- commentaires sur les issues
-- authentification JWT sécurisée
+-   user management
+-   project creation
+-   contributor management
+-   issue/ticket tracking
+-   comments on issues
+-   secure JWT authentication
 
----
+------------------------------------------------------------------------
 
-## Technologies utilisées 
+## Technologies Used
 
-- Python 3
-- Django
-- Django REST Framework
-- Simple JWT
-- SQLite3
+-   Python 3
+-   Django
+-   Django REST Framework
+-   Simple JWT
+-   SQLite3
 
----
+------------------------------------------------------------------------
 
-## Structure du projet
+## Project Structure
 
-```text
-src/
-├── SoftDeskSupport/
-├── users/
-├── projects/
-├── issues/
-└── comments/
-```
+    src/
+    ├── SoftDeskSupport/
+    ├── users/
+    ├── projects/
+    ├── issues/
+    └── comments/
 
----
+------------------------------------------------------------------------
 
-## Authentification
+## Authentication
 
-L’API utilise JWT (JSON Web Token).
+The API uses JWT (JSON Web Token) authentication.
 
-## Obtenir un token
+## Obtain a Token
 
-```http
-POST /api/token/access/
-```
+    POST /api/token/access/
 
-Body :
+Body:
 
-```json
-{
-  "username": "your_username",
-  "password": "your_password"
-}
-```
+    {
+      "username": "your_username",
+      "password": "your_password"
+    }
 
----
+------------------------------------------------------------------------
 
 ## Installation
 
-### 1. Cloner le dépôt
+### 1. Clone the Repository
 
-```bash
-git clone https://github.com/mouquettom/API-SoftDesk-Support.git
-```
+    git clone https://github.com/mouquettom/softdesk-api.git
 
-### 2. Accéder au projet
+### 2. Navigate to the Project Directory
 
-```bash
-cd API-SoftDesk-Support
-```
+    cd softdesk-api
 
-### 3. Créer un environnement virtuel
+### 3. Create a Virtual Environment
 
 #### macOS / Linux
 
-```bash
-python3 -m venv .env
-source .env/bin/activate
-```
+    python3 -m venv .env
+    source .env/bin/activate
 
 #### Windows
 
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
+    python -m venv venv
+    venv\Scripts\activate
 
----
+------------------------------------------------------------------------
 
-### 4. Installer les dépendances
+### 4. Install Dependencies
 
-```bash
-pip install -r requirements.txt
-```
+    pip install -r requirements.txt
 
----
+------------------------------------------------------------------------
 
-### 5. Appliquer les migrations
+### 5. Apply Migrations
 
-```bash
-cd src
-python manage.py migrate
-```
+    cd src
+    python manage.py migrate
 
----
+------------------------------------------------------------------------
 
-### 6. Lancer le serveur
+### 6. Run the Server
 
-```bash
-python manage.py runserver
-```
+    python manage.py runserver
 
----
+------------------------------------------------------------------------
 
-## Endpoints principaux
+## Main Endpoints
 
 ### Users
 
-| Méthode | Endpoint | Description |
-|---|---|---|
-| POST | /api/users/register/ | Créer un utilisateur |
-| GET | /api/users/me/ | Voir son profil |
-| PATCH | /api/users/me/ | Modifier son profil |
-| DELETE | /api/users/me/ | Supprimer son compte |
+  Method   Endpoint                 Description
+  -------- ------------------------ ---------------------
+  POST     `/api/users/register/`   Create a user
+  GET      `/api/users/me/`         View your profile
+  PATCH    `/api/users/me/`         Update your profile
+  DELETE   `/api/users/me/`         Delete your account
 
----
+------------------------------------------------------------------------
 
 ### Projects
 
-| Méthode | Endpoint |
-|---|---|
-| GET | /api/projects/ |
-| POST | /api/projects/ |
-| GET | /api/projects/{id}/ |
-| PATCH | /api/projects/{id}/ |
-| DELETE | /api/projects/{id}/ |
+  Method   Endpoint
+  -------- -----------------------
+  GET      `/api/projects/`
+  POST     `/api/projects/`
+  GET      `/api/projects/{id}/`
+  PATCH    `/api/projects/{id}/`
+  DELETE   `/api/projects/{id}/`
 
----
+------------------------------------------------------------------------
 
 ### Contributors
 
-| Méthode | Endpoint |
-|---|---|
-| GET | /api/projects/{project_id}/users/ |
-| POST | /api/projects/{project_id}/users/ |
+  Method   Endpoint
+  -------- -------------------------------------
+  GET      `/api/projects/{project_id}/users/`
+  POST     `/api/projects/{project_id}/users/`
 
----
+------------------------------------------------------------------------
 
 ### Issues
 
-| Méthode | Endpoint |
-|---|---|
-| GET | /api/projects/{project_id}/issues/ |
-| POST | /api/projects/{project_id}/issues/ |
+  Method   Endpoint
+  -------- --------------------------------------
+  GET      `/api/projects/{project_id}/issues/`
+  POST     `/api/projects/{project_id}/issues/`
 
----
+------------------------------------------------------------------------
 
 ### Comments
 
-| Méthode | Endpoint |
-|---|---|
-| GET | /api/projects/{project_id}/issues/{issue_id}/comments/ |
-| POST | /api/projects/{project_id}/issues/{issue_id}/comments/ |
+  Method   Endpoint
+  -------- ----------------------------------------------------------
+  GET      `/api/projects/{project_id}/issues/{issue_id}/comments/`
+  POST     `/api/projects/{project_id}/issues/{issue_id}/comments/`
 
----
+------------------------------------------------------------------------
 
 ## Permissions
 
-- authentification JWT obligatoire
-- seuls les contributeurs peuvent accéder aux projets
-- seul l’auteur peut modifier/supprimer son contenu
-- assignation d’issues limitée aux contributeurs
+-   JWT authentication is required
+-   only contributors can access projects
+-   only the author can update or delete their own content
+-   issues can only be assigned to project contributors
 
----
+------------------------------------------------------------------------
 
-## Fonctionnalités techniques
+## Technical Features
 
-- routes imbriquées
-- permissions personnalisées
-- serializers DRF
-- UUID pour les commentaires
-- validation métier
-- pagination
-- modèle utilisateur personnalisé
+-   nested routes
+-   custom permissions
+-   DRF serializers
+-   UUIDs for comments
+-   business logic validation
+-   pagination
+-   custom user model
 
----
+------------------------------------------------------------------------
 
-@Tom Mouquet
+## Author
+
+@tom_mouquet
+
+Project developed as part of the OpenClassrooms **Développeur
+d'application Python** training program.
