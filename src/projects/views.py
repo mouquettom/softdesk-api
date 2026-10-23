@@ -34,7 +34,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
         Retourne uniquement les projets où l'utilisateur connecté est contributeur
         Cela empêche un utilisateur de voir les projets des autres
         """
-        return Project.objects.filter(contributors__user=self.request.user).distinct()
+        # order_by : la pagination a besoin d'un ordre stable
+        return Project.objects.filter(contributors__user=self.request.user).distinct().order_by('id')
 
     def perform_create(self, serializer):
         """
@@ -67,7 +68,7 @@ class ContributorViewSet(mixins.ListModelMixin,
         Retourne uniquement les contributeurs du projet ciblé dans l'URL
         """
         project_id = self.kwargs['project_pk']
-        return Contributor.objects.filter(project_id=project_id)
+        return Contributor.objects.filter(project_id=project_id).order_by('id')
 
     def perform_create(self, serializer):
         """
