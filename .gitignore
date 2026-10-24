@@ -7,6 +7,7 @@ venv/
 
 # IDE
 .idea/
+.vscode/
 
 # macOS
 .DS_Store
@@ -18,17 +19,5 @@ __pycache__/
 # Django
 db.sqlite3
 
-# Variables sensibles
-.env
-
-# VSCode
-.vscode/
-
-# Mac
-.DS_Store
-
 # Logs
 *.log
-
-# migrations
-*/migrations/*.pyc
